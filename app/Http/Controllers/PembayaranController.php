@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pembayaran;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class PembayaranController extends Controller
@@ -16,16 +17,23 @@ class PembayaranController extends Controller
      */
     public function index()
     {
-        //get posts
-        $pembayarans = Pembayaran::all();
-        $pembayaran1 = Pembayaran::with('siswa')->latest()->paginate(5);
-        $total = $pembayaran1->groupBy('id_siswa')->map(function ($group) {
-            return $group->sum('jumlah_bayar');
-        });
+        $pembayaran = Pembayaran::with('siswa')
+        ->select('id_siswa', DB::raw('MAX(id) as id'), DB::raw('MAX(tgl_bayar) as tgl_bayar_last'), DB::raw('SUM(jumlah_bayar) as total_bayar'))
+        ->groupBy('id_siswa')
+        ->orderByDesc('tgl_bayar_last')
+        ->paginate(5);
 
-        //render view with posts
-        return view('pembayaran.index', compact('pembayarans','total'));
+    return view('pembayaran.index', compact('pembayaran'));
     }
+
+
+    public function history($id_siswa)
+    {
+        $pembayaran = Pembayaran::where('id_siswa', $id_siswa)->paginate(5);
+        return view('pembayaran.history', compact('pembayaran'));
+    }
+
+
 
        /**
      * create

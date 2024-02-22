@@ -17,6 +17,7 @@
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
                         <form action="{{ route('siswa.store') }}" method="POST" enctype="multipart/form-data">
+                            <a href="{{ route('siswa.index') }}" class="btn btn-md btn-info mb-3">KEMBALI </a>
 
                             @csrf
 

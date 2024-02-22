@@ -17,6 +17,7 @@
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
                         <form action="{{ route('pembayaran.store') }}" method="POST" enctype="multipart/form-data">
+                            <a href="{{ route('pembayaran.index') }}" class="btn btn-md btn-info mb-3">KEMBALI </a>
 
                             @csrf
 

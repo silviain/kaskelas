@@ -25,22 +25,22 @@
                                     <th scope="col"> ID</th>
                                     <th scope="col"> SISWA</th>
                                     <th scope="col">TANGGAL BAYAR</th>
-                                    <th scope="col">JUMLAH BAYAR</th>
+                                    <th scope="col">TOTAL BAYAR</th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($pembayarans as $key => $pembayaran)
+                                @forelse ($pembayaran as $key => $pembayaran)
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $pembayaran->siswa->nama }}</td>
                                     <td>{{ $pembayaran->tgl_bayar }}</td>
-                                    <td>{{ $total[$pembayaran->siswa->id]}}</td>
+                                    <td>{{ $pembayaran->total_bayar }}</td>
 
 
                                     <td class="text-center">
                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('pembayaran.destroy', $pembayaran->id) }}" method="POST">
-
+                                            <a class='btn btn-secondary btn-sm' href='{{ route('pembayaran.history', $pembayaran->id_siswa) }}'>HISTORY</a>
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>

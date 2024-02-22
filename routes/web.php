@@ -14,3 +14,4 @@ Route::get('pembayaran', [PembayaranController::class, 'index'])->name('pembayar
 Route::get('pembayaran/create', [PembayaranController::class,'create'])->name('pembayaran.create');
 Route::post('pembayaran/store', [PembayaranController::class, 'store'])->name('pembayaran.store');
 Route::delete('pembayaran/{pembayaran}', [PembayaranController::class, 'destroy'])->name('pembayaran.destroy');
+Route::get('/pembayaran/{id}/history', [PembayaranController::class, 'history'])->name('pembayaran.history');
